@@ -7,27 +7,43 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.projects.edu.spring.task14.booklibrary.domain.Author;
 import ru.projects.edu.spring.task14.booklibrary.domain.Book;
+import ru.projects.edu.spring.task14.booklibrary.domain.Genre;
 import ru.projects.edu.spring.task14.booklibrary.dto.AuthorDto;
+import ru.projects.edu.spring.task14.booklibrary.dto.BookDto;
 import ru.projects.edu.spring.task14.booklibrary.services.author.AuthorDtoService;
 import ru.projects.edu.spring.task14.booklibrary.services.author.AuthorService;
+import ru.projects.edu.spring.task14.booklibrary.services.book.BookDtoService;
 import ru.projects.edu.spring.task14.booklibrary.services.book.BookService;
+import ru.projects.edu.spring.task14.booklibrary.services.genre.GenreService;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-public class BookPageController extends AbstractController {
+public class BooksPageController extends AbstractController {
   private AuthorService authorService;
   private BookService bookService;
-  public BookPageController(AuthorService authorService, BookService bookService) {
+  private AuthorDtoService authorDtoService;
+  private BookDtoService bookDtoService;
+  private GenreService genreService;
+
+  public BooksPageController(AuthorService authorService, BookService bookService, AuthorDtoService authorDtoService,
+         BookDtoService bookDtoService, GenreService genreService) {
     this.authorService = authorService;
     this.bookService = bookService;
+    this.authorDtoService = authorDtoService;
+    this.bookDtoService = bookDtoService;
+    this.genreService = genreService;
   }
 
   @GetMapping("/books")
   public String listBooksPage(Model model) {
-    List<AuthorDto>authors = authorService.findAll().stream().map(AuthorDtoService::toDto).collect(Collectors.toList());
+    List<BookDto>books = bookService.findAll().stream().map(bookDtoService::toDto).collect(Collectors.toList());
+    List<Genre>genres = genreService.findAll();
+    List<AuthorDto>authors = authorService.findAll().stream().map(authorDtoService::toDto).collect(Collectors.toList());
+    model.addAttribute("books",books);
+    model.addAttribute("genres",genres);
     model.addAttribute("authors",authors);
     model.addAttribute("newBook",new Book());
     return "books";

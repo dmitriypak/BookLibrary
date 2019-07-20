@@ -7,6 +7,10 @@ public class AuthorDto {
   private String patronymic;
   private String fullName;
 
+  public AuthorDto() {
+
+  }
+
   public AuthorDto(long id, String firstName, String family, String patronymic) {
     this.id = id;
     this.firstName = firstName;

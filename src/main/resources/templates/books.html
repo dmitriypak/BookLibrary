@@ -8,42 +8,42 @@
         <title>Список книг</title>
     </head>
     <body>
-    <table class="table table-striped" id="table">
-        <thead>
-        <tr>
-        <tr>
-            <th scope="col">Название</th>
-            <th scope="col">Автор</th>
-            <th scope="col">Жанр</th>
-            <th scope="col">
-                <button class="btn btn-success" data-toggle="modal"
-                        data-target="#addBook">Добавить книгу
-                </button>
-            </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>Бармалей</td>
-            <td>Корней Иванович Чуковский</td>
-            <td>Детские сказки</td>
-            <td class="table__button">
-                <button type="button" class="btn btn-secondary btn-lg disabled" role="button" aria-disabled="true"
-                        data-target="#deleteBook" title="Удалить книгу">
-                    <span>×</span>
-                </button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
-
+    <div th:insert="~{fragments/menu-nav-bar :: menu}"></div>
+    <div class="container">
+        <table class="table table-striped" id="table">
+            <thead>
+            <tr>
+                <th scope="col">Название</th>
+                <th scope="col">Автор</th>
+                <th scope="col">Жанр</th>
+                <th scope="col">
+                    <button class="btn btn-success" data-toggle="modal"
+                            data-target="#addBook">Добавить книгу
+                    </button>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="book,i : ${books}">
+                <td th:text="${book.name}"></td>
+                <td th:text="${book.authorFullName}"/></td>
+                <td th:text="${book.genreName}"/></td>
+                <td class="table__button">
+                    <button type="button" class="close close_customize" data-toggle="modal"
+                            data-target="#deleteBook" title="Удалить книгу">
+                        <span>×</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
     <!-- Modal -->
     <div class="modal fade" id="addBook" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addEmployeeLabel">Добавление книги</h5>
+                    <h5 class="modal-title">Добавление книги</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -64,14 +64,16 @@
                                             th:value="${author.id}"
                                             th:text="${author.family}">Фамилия</option>
                                 </select>
-<!--                                <input type="text" class="form-control form-control_customize" name="phone"-->
-<!--                                       placeholder="Автор" required th:field="*{author}">-->
                                 <div class="invalid-feedback invalid-feedback_customize">Пожалуйста, укажите автора
                                 </div>
                             </div>
                             <div class="col-12">
-                                <input type="Жанр" class="form-control form-control_customize" name="email" id="email"
-                                       placeholder="Жанр" required th:field="*{genre}">
+                                <select th:field="*{genre}">
+                                    <option value=""> -- </option>
+                                    <option th:each="genre : ${genres}"
+                                            th:value="${genre.id}"
+                                            th:text="${genre.name}">Жанр</option>
+                                </select>
                                 <div class="invalid-feedback invalid-feedback_customize">Пожалуйста, укажите жанр</div>
                             </div>
                         </div>

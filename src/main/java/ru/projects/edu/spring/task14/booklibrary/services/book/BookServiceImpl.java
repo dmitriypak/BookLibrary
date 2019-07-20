@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 import ru.projects.edu.spring.task14.booklibrary.domain.Book;
 import ru.projects.edu.spring.task14.booklibrary.repository.BookRepository;
 
+import java.util.List;
+
 @Service
 public class BookServiceImpl implements BookService {
 
@@ -17,5 +19,8 @@ public class BookServiceImpl implements BookService {
     return newBook;
   }
 
-
+  @Override
+  public List<Book> findAll() {
+    return bookRepository.findAll();
+  }
 }

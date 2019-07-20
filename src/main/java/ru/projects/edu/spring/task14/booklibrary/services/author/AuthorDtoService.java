@@ -6,7 +6,8 @@ import ru.projects.edu.spring.task14.booklibrary.dto.AuthorDto;
 
 @Service
 public class AuthorDtoService {
-  public static AuthorDto toDto(Author author){
+
+  public AuthorDto toDto(Author author){
     return new AuthorDto(author.getId(),author.getFirstName(),author.getFamily(),author.getPatronymic());
   }
 
