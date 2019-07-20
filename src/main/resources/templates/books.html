@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+        <link rel="stylesheet" href="css/main.css" th:href="@{/css/main.css}"/>
+        <title>Список книг</title>
+    </head>
+    <body>
+    <table class="table table-striped" id="table">
+        <thead>
+        <tr>
+        <tr>
+            <th scope="col">Название</th>
+            <th scope="col">Автор</th>
+            <th scope="col">Жанр</th>
+            <th scope="col">
+                <button class="btn btn-success" data-toggle="modal"
+                        data-target="#addBook">Добавить книгу
+                </button>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Бармалей</td>
+            <td>Корней Иванович Чуковский</td>
+            <td>Детские сказки</td>
+            <td class="table__button">
+                <button type="button" class="btn btn-secondary btn-lg disabled" role="button" aria-disabled="true"
+                        data-target="#deleteBook" title="Удалить книгу">
+                    <span>×</span>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="addBook" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addEmployeeLabel">Добавление книги</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form id="form" class="needs-validation" novalidate
+                      th:action="@{/books/add}" th:object="${newBook}" method="post">
+                    <div class="modal-body">
+                        <div class="form-row">
+                            <div class="col-12">
+                                <input type="text" class="form-control form-control_customize" name="name"
+                                       placeholder="Название" required th:field="*{name}">
+                                <div class="invalid-feedback invalid-feedback_customize">Пожалуйста, введите Название книги</div>
+                            </div>
+                            <div class="col-12">
+                                <select th:field="*{author}">
+                                    <option value=""> -- </option>
+                                    <option th:each="author : ${authors}"
+                                            th:value="${author.id}"
+                                            th:text="${author.family}">Фамилия</option>
+                                </select>
+<!--                                <input type="text" class="form-control form-control_customize" name="phone"-->
+<!--                                       placeholder="Автор" required th:field="*{author}">-->
+                                <div class="invalid-feedback invalid-feedback_customize">Пожалуйста, укажите автора
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <input type="Жанр" class="form-control form-control_customize" name="email" id="email"
+                                       placeholder="Жанр" required th:field="*{genre}">
+                                <div class="invalid-feedback invalid-feedback_customize">Пожалуйста, укажите жанр</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-outline-primary btn-outline_customize btn_gray" data-dismiss="modal"
+                                aria-label="Close" th:value="Reset">Отмена
+                        </button>
+                        <button class="btn btn-primary btn_customize btn_green" type="submit" id="add" th:value="Save">
+                            Добавить
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </body>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+    <script src="js/main.js"  th:src="@{/js/main.js}"></script>
+</html>

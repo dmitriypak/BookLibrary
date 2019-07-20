@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <section class="section section_first">
+        <div class="modal fade" id="addBook" tabindex="-1" role="dialog" aria-labelledby="addBookLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addBookLabel">Добавление книги</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <form id="form" class="needs-validation" novalidate
+                          th:action="@{/book/add}" th:object="${account}" method="post">
+                        <div class="modal-body">
+                            <div class="form-row">
+                                <div class="col-12">
+                                    <input type="text" class="form-control form-control_customize" name="name"
+                                           placeholder="ФИО" required th:field="*{name}">
+                                    <div class="invalid-feedback invalid-feedback_customize">Пожалуйста, введите ФИО</div>
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" class="form-control form-control_customize" name="phone"
+                                           placeholder="Номер телефона" required th:field="*{phone_number}">
+                                    <div class="invalid-feedback invalid-feedback_customize">Пожалуйста, введите номер
+                                        телефона
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <input type="email" class="form-control form-control_customize" name="email" id="email"
+                                           placeholder="Электронная почта" required th:field="*{email}">
+                                    <div class="invalid-feedback invalid-feedback_customize">Пожалуйста, введите email</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-outline-primary btn-outline_customize btn_gray" data-dismiss="modal"
+                                    aria-label="Close" th:value="Reset">Отмена
+                            </button>
+                            <button class="btn btn-primary btn_customize btn_green" type="submit" id="add" th:value="Save">
+                                Добавить
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+
+</html>
