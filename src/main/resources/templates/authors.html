@@ -30,11 +30,24 @@
                     <td th:text="${author.family}"></td>
                     <td th:text="${author.patronymic}"></td>
                     <td class="table__button">
-                        <button type="button" class="close close_customize" data-toggle="modal"
-                                data-target="#deleteAuthor" title="Удалить автора">
-                            <span>×</span>
-                        </button>
+                        <form action="#" th:action="@{/authors/edit(id=${author.id})}" method="GET">
+                            <input type="hidden" name="id" th:value="${author.id}" />
+                            <button type="submit" class="btn btn-warning btn-sm" title="Редактировать автора">
+                                Редактировать
+                            </button>
+                        </form>
                     </td>
+                    <td class="table__button">
+                        <form action="#" th:action="@{/authors/delete(id=${author.id})}" method="POST">
+                            <input type="hidden" name="authorId" th:value="${author.id}" />
+                            <button type="submit" class="btn btn-danger btn-sm"
+                                    onclick="if (!(confirm('Удалить автора?'))) return false">
+                                Удалить
+                            </button>
+
+                        </form>
+                    </td>
+
                 </tr>
                 </tbody>
             </table>
@@ -55,17 +68,17 @@
                             <div class="form-row">
                                 <div class="col-12">
                                     <input type="text" class="form-control form-control_customize" name="name"
-                                           placeholder="Имя" required th:field="*{firstName}">
-                                    <div class="invalid-feedback invalid-feedback_customize">Пожалуйста, введите Имя автора</div>
-                                </div>
-                                <div class="col-12">
-                                    <input type="text" class="form-control form-control_customize" name="name"
                                            placeholder="Фамилия" required th:field="*{family}">
                                     <div class="invalid-feedback invalid-feedback_customize">Пожалуйста, введите Фамилию автора</div>
                                 </div>
                                 <div class="col-12">
                                     <input type="text" class="form-control form-control_customize" name="name"
-                                           placeholder="Отчество" required th:field="*{patronymic}">
+                                           placeholder="Имя" required th:field="*{firstName}">
+                                    <div class="invalid-feedback invalid-feedback_customize">Пожалуйста, введите Имя автора</div>
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" class="form-control form-control_customize" name="name"
+                                           placeholder="Отчество" th:field="*{patronymic}">
                                     <div class="invalid-feedback invalid-feedback_customize">Пожалуйста, введите Отчество автора</div>
                                 </div>
                             </div>

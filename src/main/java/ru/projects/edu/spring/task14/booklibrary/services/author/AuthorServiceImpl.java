@@ -5,6 +5,7 @@ import ru.projects.edu.spring.task14.booklibrary.domain.Author;
 import ru.projects.edu.spring.task14.booklibrary.repository.AuthorRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,5 +25,15 @@ public class AuthorServiceImpl implements AuthorService {
   @Override
   public Author save(Author author) {
     return authorRepository.save(author);
+  }
+
+  @Override
+  public void delete(long id) {
+    authorRepository.deleteById(id);
+  }
+
+  @Override
+  public Optional<Author> findById(Long id) {
+    return authorRepository.findById(id);
   }
 }

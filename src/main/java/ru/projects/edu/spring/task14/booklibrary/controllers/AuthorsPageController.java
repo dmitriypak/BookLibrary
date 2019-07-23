@@ -6,13 +6,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.projects.edu.spring.task14.booklibrary.domain.Genre;
+import org.springframework.web.bind.annotation.RequestParam;
+import ru.projects.edu.spring.task14.booklibrary.domain.Author;
 import ru.projects.edu.spring.task14.booklibrary.dto.AuthorDto;
+import ru.projects.edu.spring.task14.booklibrary.exception.NotFoundException;
 import ru.projects.edu.spring.task14.booklibrary.services.author.AuthorDtoService;
 import ru.projects.edu.spring.task14.booklibrary.services.author.AuthorService;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -36,9 +39,31 @@ public class AuthorsPageController {
 
   @PostMapping("/authors/add")
   @Transactional
-  public String addGenre(@ModelAttribute AuthorDto newAuthor) {
+  public String addAuthor(@ModelAttribute AuthorDto newAuthor) {
     authorService.save(authorDtoService.toDomainObject(newAuthor));
     return "redirect:/authors";
   }
 
+  @PostMapping("/authors/save")
+  @Transactional
+  public String saveAuthor(@ModelAttribute AuthorDto author) {
+    System.out.println(author.getId());
+    authorService.save(authorDtoService.toDomainObject(author));
+    return "redirect:/authors";
+  }
+
+
+  @PostMapping("/authors/delete")
+  @Transactional
+  public String deleteAuthor(@RequestParam("id") long authorId) {
+    authorService.delete(authorId);
+    return "redirect:/authors";
+  }
+
+  @GetMapping("/authors/edit")
+  public String editAuthor(@RequestParam("id") long authorId, Model model) {
+    Optional<Author> author = authorService.findById(authorId);
+    model.addAttribute("author",author.get());
+    return "editauthor";
+  }
 }

@@ -30,6 +30,12 @@
                 <td th:text="${book.genreName}"/></td>
                 <td class="table__button">
                     <button type="button" class="close close_customize" data-toggle="modal"
+                            data-target="#editBook" title="Редактировать книгу">
+                        <span>×</span>
+                    </button>
+                </td>
+                <td class="table__button">
+                    <button type="button" class="close close_customize" data-toggle="modal"
                             data-target="#deleteBook" title="Удалить книгу">
                         <span>×</span>
                     </button>
