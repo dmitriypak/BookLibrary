@@ -17,6 +17,7 @@
                 <th scope="col">Автор</th>
                 <th scope="col">Жанр</th>
                 <th scope="col">Год выпуска</th>
+                <th scope="col">Обложка</th>
                 <th scope="col">
                     <button class="btn btn-success" data-toggle="modal"
                             data-target="#addBook">Добавить книгу
@@ -47,6 +48,9 @@
                         </button>
 
                     </form>
+                </td>
+                <td th:if="${book.coverImage!=null}">
+                    <img  th:src="${book.coverImage.fullPath}">
                 </td>
             </tr>
             </tbody>

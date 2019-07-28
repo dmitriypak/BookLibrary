@@ -7,7 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import ru.projects.edu.spring.task14.booklibrary.config.StoragePath;
+import ru.projects.edu.spring.task14.booklibrary.config.WebMvcConfig;
 import ru.projects.edu.spring.task14.booklibrary.domain.Book;
+import ru.projects.edu.spring.task14.booklibrary.domain.DBFile;
 import ru.projects.edu.spring.task14.booklibrary.domain.Genre;
 import ru.projects.edu.spring.task14.booklibrary.domain.dto.BookDto;
 import ru.projects.edu.spring.task14.booklibrary.domain.dto.AuthorDto;
@@ -17,26 +21,35 @@ import ru.projects.edu.spring.task14.booklibrary.services.author.AuthorService;
 import ru.projects.edu.spring.task14.booklibrary.services.book.BookDtoService;
 import ru.projects.edu.spring.task14.booklibrary.services.book.BookService;
 import ru.projects.edu.spring.task14.booklibrary.services.genre.GenreService;
+import ru.projects.edu.spring.task14.booklibrary.services.storage.FileStorageService;
 
 import javax.transaction.Transactional;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Controller
 public class BooksPageController extends AbstractController {
-  private AuthorService authorService;
-  private BookService bookService;
-  private AuthorDtoService authorDtoService;
-  private BookDtoService bookDtoService;
-  private GenreService genreService;
+  private final AuthorService authorService;
+  private final BookService bookService;
+  private final AuthorDtoService authorDtoService;
+  private final BookDtoService bookDtoService;
+  private final GenreService genreService;
+  private final FileStorageService fileStorageService;
+  private final StoragePath storagePath;
 
   public BooksPageController(AuthorService authorService, BookService bookService, AuthorDtoService authorDtoService,
-         BookDtoService bookDtoService, GenreService genreService) {
+         BookDtoService bookDtoService, GenreService genreService, FileStorageService fileStorageService,
+                             StoragePath storagePath) {
     this.authorService = authorService;
     this.bookService = bookService;
     this.authorDtoService = authorDtoService;
     this.bookDtoService = bookDtoService;
     this.genreService = genreService;
+    this.fileStorageService = fileStorageService;
+    this.storagePath = storagePath;
   }
 
   @GetMapping("/books")
@@ -52,10 +65,11 @@ public class BooksPageController extends AbstractController {
   }
 
   @GetMapping("/books/edit")
-  public String editBooksPage(@RequestParam("id") long bookId,Model model) {
+  public String editBooksPage(@RequestParam("id") long bookId, Model model) {
     BookDto book = bookDtoService.toDto(bookService.findById(bookId).get());
     List<AuthorDto>authors = authorService.findAll().stream().map(authorDtoService::toDto).collect(Collectors.toList());
     List<Genre>genres = genreService.findAll();
+
     model.addAttribute("book",book);
     model.addAttribute("genres",genres);
     model.addAttribute("authors",authors);
@@ -70,7 +84,18 @@ public class BooksPageController extends AbstractController {
 
   @PostMapping("/books/save")
   @Transactional
-  public String saveBook(@ModelAttribute BookDto book) {
+  public String saveBook( @RequestParam("cover") MultipartFile cover, @ModelAttribute BookDto book) throws IOException {
+    if(cover!=null){
+      File dir = new File(storagePath.getPath());
+      if(!dir.exists()){
+        dir.mkdir();
+      }
+      String uuidFile = UUID.randomUUID().toString();
+      String fileName = uuidFile+"."+cover.getOriginalFilename();
+      cover.transferTo(new File(storagePath.getPath()+"/"+fileName));
+      DBFile dbFile = new DBFile(cover.getName(),cover.getContentType());
+      book.setCoverImage(dbFile);
+    }
     bookService.save(bookDtoService.toDomainObject(book));
     return "redirect:/books";
   }

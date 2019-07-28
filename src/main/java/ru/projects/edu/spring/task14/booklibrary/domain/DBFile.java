@@ -11,8 +11,8 @@ public class DBFile {
   private Long id;
 
   private String name;
-
   private String type;
+  private String path;
 
   public DBFile() {
   }
@@ -20,6 +20,13 @@ public class DBFile {
   public DBFile(String fileName, String fileType) {
     this.name = fileName;
     this.type = fileType;
+  }
+
+
+  public DBFile(String fileName, String fileType, String path) {
+    this.name = fileName;
+    this.type = fileType;
+    this.path = path;
   }
 
 
@@ -46,4 +53,17 @@ public class DBFile {
   public void setType(String type) {
     this.type = type;
   }
+
+  public String getPath() {
+    return path;
+  }
+
+  public void setPath(String path) {
+    this.path = path;
+  }
+
+  public String getFullPath() {
+    return  path+"/"+name;
+  }
+
 }
