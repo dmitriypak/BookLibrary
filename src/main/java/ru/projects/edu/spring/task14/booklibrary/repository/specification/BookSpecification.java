@@ -29,8 +29,11 @@ public class BookSpecification implements Specification<Book> {
     Join joinGenre = root.join("genre");
     Predicate p = cb.conjunction();
     if (filter.getAuthorFullName() != null) {
-      p.getExpressions().add(cb.like(cb.lower(joinAuthor.get("family")), "%"+filter.getAuthorFullName()+"%"));
+      p.getExpressions().add(cb.or(cb.like(cb.lower(joinAuthor.get("family")), "%"+filter.getAuthorFullName()+"%"),
+          cb.like(cb.lower(joinAuthor.get("firstName")), "%"+filter.getAuthorFullName()+"%"),
+          cb.or(cb.like(cb.lower(joinAuthor.get("patronymic")), "%"+filter.getAuthorFullName()+"%"))));
     }
+
     if(filter.getReleaseYear()!=null){
       p.getExpressions().add(cb.equal(root.get("releaseYear"),filter.getReleaseYear()));
     }
