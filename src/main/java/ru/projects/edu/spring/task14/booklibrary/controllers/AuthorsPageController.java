@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.projects.edu.spring.task14.booklibrary.domain.Author;
-import ru.projects.edu.spring.task14.booklibrary.dto.AuthorDto;
-import ru.projects.edu.spring.task14.booklibrary.exception.NotFoundException;
+import ru.projects.edu.spring.task14.booklibrary.domain.dto.AuthorDto;
 import ru.projects.edu.spring.task14.booklibrary.services.author.AuthorDtoService;
 import ru.projects.edu.spring.task14.booklibrary.services.author.AuthorService;
 

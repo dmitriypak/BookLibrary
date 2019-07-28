@@ -36,7 +36,7 @@
         </div>
         <div class="modal-footer">
             <button class="btn btn-outline-primary btn-outline_customize btn_gray" data-dismiss="modal"
-                    aria-label="Close" th:value="Reset">Отмена
+                    aria-label="Close" type="submit" th:action="@{/authors}" method="get">Отмена
             </button>
             <button class="btn btn-primary btn_customize btn_green" type="submit" id="add" th:value="Save">
                 Сохранить

@@ -5,6 +5,7 @@ import ru.projects.edu.spring.task14.booklibrary.domain.Book;
 import ru.projects.edu.spring.task14.booklibrary.repository.BookRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -22,5 +23,10 @@ public class BookServiceImpl implements BookService {
   @Override
   public List<Book> findAll() {
     return bookRepository.findAll();
+  }
+
+  @Override
+  public Optional<Book> findById(Long id) {
+    return bookRepository.findById(id);
   }
 }

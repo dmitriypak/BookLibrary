@@ -6,7 +6,6 @@ import javax.persistence.*;
 @Table(name = "book")
 public class Book {
   @Id
-  //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_id_seq")
   @GeneratedValue(strategy = GenerationType.IDENTITY )
   @Column(name = "id")
   private long id;
@@ -21,9 +20,21 @@ public class Book {
   @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JoinColumn(name = "genre_id")
   private Genre genre;
+  @Column(name="release_year", nullable = false)
+  private Integer releaseYear;
 
+  @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+  @JoinColumn(name = "cover_file_id", nullable = false)
+  private DBFile coverImage;
 
   public Book() {
+  }
+
+  public Book(long id, String name, Author author, Genre genre) {
+    this.id = id;
+    this.name = name;
+    this.author = author;
+    this.genre = genre;
   }
 
   public long getId() {
@@ -57,4 +68,22 @@ public class Book {
   public void setGenre(Genre genre) {
     this.genre = genre;
   }
+
+  public Integer getReleaseYear() {
+    return releaseYear;
+  }
+
+  public void setReleaseYear(Integer releaseYear) {
+    this.releaseYear = releaseYear;
+  }
+
+  public DBFile getCoverImage() {
+    return coverImage;
+  }
+
+  public void setCoverImage(DBFile coverImage) {
+    this.coverImage = coverImage;
+  }
+
+
 }

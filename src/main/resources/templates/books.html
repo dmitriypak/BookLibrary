@@ -29,10 +29,12 @@
                 <td th:text="${book.authorFullName}"/></td>
                 <td th:text="${book.genreName}"/></td>
                 <td class="table__button">
-                    <button type="button" class="close close_customize" data-toggle="modal"
-                            data-target="#editBook" title="Редактировать книгу">
-                        <span>×</span>
-                    </button>
+                    <form action="#" th:action="@{/books/edit(id=${book.id})}" method="GET">
+                        <input type="hidden" name="id" th:value="${book.id}" />
+                        <button type="submit" class="btn btn-warning btn-sm" title="Редактировать книгу">
+                            Редактировать
+                        </button>
+                    </form>
                 </td>
                 <td class="table__button">
                     <button type="button" class="close close_customize" data-toggle="modal"
@@ -54,7 +56,7 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <form id="form" class="needs-validation" novalidate
+                <form id="form" class="needs-validation" enctype="multipart/form-data" novalidate
                       th:action="@{/books/add}" th:object="${newBook}" method="post">
                     <div class="modal-body">
                         <div class="form-row">
@@ -82,6 +84,12 @@
                                 </select>
                                 <div class="invalid-feedback invalid-feedback_customize">Пожалуйста, укажите жанр</div>
                             </div>
+                            <div class="col-12">
+                                <input type="text" class="form-control form-control_customize" name="name"
+                                       placeholder="Название" required th:field="*{name}">
+                                <div class="invalid-feedback invalid-feedback_customize">Пожалуйста, введите Название книги</div>
+                            </div>
+
                         </div>
                     </div>
                     <div class="modal-footer">

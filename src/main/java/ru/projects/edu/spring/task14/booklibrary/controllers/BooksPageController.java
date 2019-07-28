@@ -5,11 +5,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.projects.edu.spring.task14.booklibrary.domain.Author;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.projects.edu.spring.task14.booklibrary.domain.Book;
 import ru.projects.edu.spring.task14.booklibrary.domain.Genre;
-import ru.projects.edu.spring.task14.booklibrary.dto.AuthorDto;
-import ru.projects.edu.spring.task14.booklibrary.dto.BookDto;
+import ru.projects.edu.spring.task14.booklibrary.domain.dto.BookDto;
+import ru.projects.edu.spring.task14.booklibrary.domain.dto.AuthorDto;
 import ru.projects.edu.spring.task14.booklibrary.services.author.AuthorDtoService;
 import ru.projects.edu.spring.task14.booklibrary.services.author.AuthorService;
 import ru.projects.edu.spring.task14.booklibrary.services.book.BookDtoService;
@@ -49,6 +49,12 @@ public class BooksPageController extends AbstractController {
     return "books";
   }
 
+  @GetMapping("/books/edit")
+  public String editBooksPage(@RequestParam("id") long bookId,Model model) {
+    BookDto book = bookDtoService.toDto(bookService.findById(bookId).get());
+    model.addAttribute("book",book);
+    return "editbook";
+  }
   @PostMapping("/books/add")
   @Transactional
   public String addBook(@ModelAttribute Book newBook) {

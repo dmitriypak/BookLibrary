@@ -1,4 +1,4 @@
-package ru.projects.edu.spring.task14.booklibrary.dto;
+package ru.projects.edu.spring.task14.booklibrary.domain.dto;
 
 public class AuthorDto {
   private long id;

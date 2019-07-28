@@ -1,10 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Редактирование книги</title>
 </head>
 <body>
+<form id="form" class="needs-validation" enctype="multipart/form-data" novalidate
+      th:action="@{/books/save}" th:object="${book}" method="post">
+    <div class="modal-body">
+        <div class="form-row">
+            <div class="col-12">
+                <input type="text" class="form-control form-control_customize" name="name"
+                       placeholder="Название" required th:field="*{name}">
+                <div class="invalid-feedback invalid-feedback_customize">Пожалуйста, введите Название книги</div>
+            </div>
+            <div class="col-12">
+                <select th:field="*{author}">
+                    <option value=""> -- </option>
+                    <option th:each="author : ${authors}"
+                            th:value="${author.id}"
+                            th:text="${author.family}">Фамилия</option>
+                </select>
+                <div class="invalid-feedback invalid-feedback_customize">Пожалуйста, укажите автора
+                </div>
+            </div>
+            <div class="col-12">
+                <select th:field="*{genre}">
+                    <option value=""> -- </option>
+                    <option th:each="genre : ${genres}"
+                            th:value="${genre.id}"
+                            th:text="${genre.name}">Жанр</option>
+                </select>
+                <div class="invalid-feedback invalid-feedback_customize">Пожалуйста, укажите жанр</div>
+            </div>
+            <div class="col-12">
+                <input type="text" class="form-control form-control_customize" name="name"
+                       placeholder="Название" required th:field="*{name}">
+                <div class="invalid-feedback invalid-feedback_customize">Пожалуйста, введите Название книги</div>
+            </div>
 
+        </div>
+    </div>
+    <div>
+        <button class="btn btn-outline-primary btn-outline_customize btn_gray" data-dismiss="modal"
+                aria-label="Close" th:value="Reset">Отмена
+        </button>
+        <button class="btn btn-primary btn_customize btn_green" type="submit" id="add" th:value="Save">
+            Добавить
+        </button>
+    </div>
+</form>
 </body>
 </html>
