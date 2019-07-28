@@ -16,6 +16,7 @@
                 <th scope="col">Название</th>
                 <th scope="col">Автор</th>
                 <th scope="col">Жанр</th>
+                <th scope="col">Год выпуска</th>
                 <th scope="col">
                     <button class="btn btn-success" data-toggle="modal"
                             data-target="#addBook">Добавить книгу
@@ -28,6 +29,7 @@
                 <td th:text="${book.name}"></td>
                 <td th:text="${book.authorFullName}"/></td>
                 <td th:text="${book.genreName}"/></td>
+                <td th:text="${book.releaseYear}"/></td>
                 <td class="table__button">
                     <form action="#" th:action="@{/books/edit(id=${book.id})}" method="GET">
                         <input type="hidden" name="id" th:value="${book.id}" />
@@ -37,10 +39,14 @@
                     </form>
                 </td>
                 <td class="table__button">
-                    <button type="button" class="close close_customize" data-toggle="modal"
-                            data-target="#deleteBook" title="Удалить книгу">
-                        <span>×</span>
-                    </button>
+                    <form action="#" th:action="@{/books/delete(id=${book.id})}" method="POST">
+                        <input type="hidden" name="authorId" th:value="${book.id}" />
+                        <button type="submit" class="btn btn-danger btn-sm"
+                                onclick="if (!(confirm('Удалить книгу?'))) return false">
+                            Удалить
+                        </button>
+
+                    </form>
                 </td>
             </tr>
             </tbody>
@@ -86,7 +92,7 @@
                             </div>
                             <div class="col-12">
                                 <input type="text" class="form-control form-control_customize" name="name"
-                                       placeholder="Название" required th:field="*{name}">
+                                       placeholder="Год издания" required th:field="*{releaseYear}">
                                 <div class="invalid-feedback invalid-feedback_customize">Пожалуйста, введите Название книги</div>
                             </div>
 

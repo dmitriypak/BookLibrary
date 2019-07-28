@@ -52,13 +52,31 @@ public class BooksPageController extends AbstractController {
   @GetMapping("/books/edit")
   public String editBooksPage(@RequestParam("id") long bookId,Model model) {
     BookDto book = bookDtoService.toDto(bookService.findById(bookId).get());
+    List<AuthorDto>authors = authorService.findAll().stream().map(authorDtoService::toDto).collect(Collectors.toList());
+    List<Genre>genres = genreService.findAll();
     model.addAttribute("book",book);
+    model.addAttribute("genres",genres);
+    model.addAttribute("authors",authors);
     return "editbook";
   }
   @PostMapping("/books/add")
   @Transactional
   public String addBook(@ModelAttribute Book newBook) {
     bookService.save(newBook);
+    return "redirect:/books";
+  }
+
+  @PostMapping("/books/save")
+  @Transactional
+  public String saveBook(@ModelAttribute BookDto book) {
+    bookService.save(bookDtoService.toDomainObject(book));
+    return "redirect:/books";
+  }
+
+  @PostMapping("/books/delete")
+  @Transactional
+  public String deleteAuthor(@RequestParam("id") long bookId) {
+    bookService.deleteById(bookId);
     return "redirect:/books";
   }
 

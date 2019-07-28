@@ -8,7 +8,7 @@ public class Author {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
-  private long id;
+  private Long id;
 
   @Column(name = "firstname")
   private String firstName;
@@ -22,18 +22,18 @@ public class Author {
   public Author() {
   }
 
-  public Author(long id, String firstName, String family, String patronymic) {
+  public Author(Long id, String firstName, String family, String patronymic) {
     this.id = id;
     this.firstName = firstName;
     this.family = family;
     this.patronymic = patronymic;
   }
 
-  public long getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(Long id) {
     this.id = id;
   }
 

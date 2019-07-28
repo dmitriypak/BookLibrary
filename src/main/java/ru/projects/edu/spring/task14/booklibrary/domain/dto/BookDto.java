@@ -7,28 +7,29 @@ import ru.projects.edu.spring.task14.booklibrary.domain.Genre;
 import javax.persistence.criteria.CriteriaBuilder;
 
 public class BookDto {
-  private long id;
+  private Long id;
   private String name;
   private String authorFullName;
   private String genreName;
   private Author author;
   private Genre genre;
-  private int releaseYear;
+  private Integer releaseYear;
   private DBFile coverImage;
 
 
-  public BookDto(long id, String name, Author author, Genre genre) {
+  public BookDto(Long id, String name, Author author, Genre genre, Integer releaseYear) {
     this.id = id;
     this.name = name;
     this.author = author;
     this.genre = genre;
+    this.releaseYear = releaseYear;
   }
 
-  public long getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
@@ -67,7 +68,7 @@ public class BookDto {
     return genre.getName();
   }
 
-  public int getReleaseYear() {
+  public Integer getReleaseYear() {
     return releaseYear;
   }
 

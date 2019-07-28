@@ -9,6 +9,6 @@ import java.util.Optional;
 public interface AuthorService {
   List<Author> findAll();
   Author save(Author author);
-  void delete(long id);
+  void deleteById(Long id);
   Optional<Author> findById(Long id);
 }

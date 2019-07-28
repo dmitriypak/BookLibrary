@@ -54,13 +54,13 @@ public class AuthorsPageController {
 
   @PostMapping("/authors/delete")
   @Transactional
-  public String deleteAuthor(@RequestParam("id") long authorId) {
-    authorService.delete(authorId);
+  public String deleteAuthor(@RequestParam("id") Long authorId) {
+    authorService.deleteById(authorId);
     return "redirect:/authors";
   }
 
   @GetMapping("/authors/edit")
-  public String editAuthor(@RequestParam("id") long authorId, Model model) {
+  public String editAuthor(@RequestParam("id") Long authorId, Model model) {
     Optional<Author> author = authorService.findById(authorId);
     model.addAttribute("author",author.get());
     return "editauthor";

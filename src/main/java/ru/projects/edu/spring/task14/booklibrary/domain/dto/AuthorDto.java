@@ -1,7 +1,7 @@
 package ru.projects.edu.spring.task14.booklibrary.domain.dto;
 
 public class AuthorDto {
-  private long id;
+  private Long id;
   private String firstName;
   private String family;
   private String patronymic;
@@ -22,7 +22,7 @@ public class AuthorDto {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(Long id) {
     this.id = id;
   }
 

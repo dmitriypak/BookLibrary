@@ -4,7 +4,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
-        <link rel="stylesheet" href="css/main.css" th:href="@{/css/main.css}"/>
         <title>Авторы</title>
     </head>
     <body>
@@ -69,17 +68,14 @@
                                 <div class="col-12">
                                     <input type="text" class="form-control form-control_customize" name="name"
                                            placeholder="Фамилия" required th:field="*{family}">
-                                    <div class="invalid-feedback invalid-feedback_customize">Пожалуйста, введите Фамилию автора</div>
                                 </div>
                                 <div class="col-12">
                                     <input type="text" class="form-control form-control_customize" name="name"
                                            placeholder="Имя" required th:field="*{firstName}">
-                                    <div class="invalid-feedback invalid-feedback_customize">Пожалуйста, введите Имя автора</div>
                                 </div>
                                 <div class="col-12">
                                     <input type="text" class="form-control form-control_customize" name="name"
                                            placeholder="Отчество" th:field="*{patronymic}">
-                                    <div class="invalid-feedback invalid-feedback_customize">Пожалуйста, введите Отчество автора</div>
                                 </div>
                             </div>
                         </div>
@@ -99,5 +95,4 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
-    <script src="js/main.js"  th:src="@{/js/main.js}"></script>
 </html>
