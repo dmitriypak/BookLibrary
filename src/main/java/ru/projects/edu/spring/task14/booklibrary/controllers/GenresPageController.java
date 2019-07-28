@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.projects.edu.spring.task14.booklibrary.domain.Genre;
 import ru.projects.edu.spring.task14.booklibrary.services.genre.GenreService;
 
@@ -32,6 +33,14 @@ public class GenresPageController {
   @Transactional
   public String addGenre(@ModelAttribute Genre newGenre) {
     genreService.save(newGenre);
+    return "redirect:/genres";
+  }
+
+
+  @PostMapping("/genres/delete")
+  @Transactional
+  public String deleteGenre(@RequestParam("id") long genreId) {
+    genreService.deleteById(genreId);
     return "redirect:/genres";
   }
 

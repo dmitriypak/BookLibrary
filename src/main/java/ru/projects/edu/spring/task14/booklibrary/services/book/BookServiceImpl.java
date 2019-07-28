@@ -1,5 +1,6 @@
 package ru.projects.edu.spring.task14.booklibrary.services.book;
 
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import ru.projects.edu.spring.task14.booklibrary.domain.Book;
 import ru.projects.edu.spring.task14.booklibrary.repository.BookRepository;
@@ -33,5 +34,10 @@ public class BookServiceImpl implements BookService {
   @Override
   public void deleteById(Long id) {
     bookRepository.deleteById(id);
+  }
+
+  @Override
+  public List<Book>findAll(Specification<Book> specification){
+    return bookRepository.findAll(specification);
   }
 }

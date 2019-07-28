@@ -8,7 +8,7 @@
         <title>Список книг</title>
     </head>
     <body>
-    <div th:insert="~{fragments/menu-nav-bar :: menu}"></div>
+    <div th:insert="~{fragments/menu-nav-bar-books :: menu}"></div>
     <div class="container">
         <table class="table table-striped" id="table">
             <thead>
@@ -63,7 +63,7 @@
                     </button>
                 </div>
                 <form id="form" class="needs-validation" enctype="multipart/form-data" novalidate
-                      th:action="@{/books/add}" th:object="${newBook}" method="post">
+                      th:action="@{/books/add}" th:object="${objBook}" method="post">
                     <div class="modal-body">
                         <div class="form-row">
                             <div class="col-12">

@@ -1,5 +1,6 @@
 package ru.projects.edu.spring.task14.booklibrary.controllers;
 
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,7 @@ import ru.projects.edu.spring.task14.booklibrary.domain.Book;
 import ru.projects.edu.spring.task14.booklibrary.domain.Genre;
 import ru.projects.edu.spring.task14.booklibrary.domain.dto.BookDto;
 import ru.projects.edu.spring.task14.booklibrary.domain.dto.AuthorDto;
+import ru.projects.edu.spring.task14.booklibrary.repository.specification.BookSpecification;
 import ru.projects.edu.spring.task14.booklibrary.services.author.AuthorDtoService;
 import ru.projects.edu.spring.task14.booklibrary.services.author.AuthorService;
 import ru.projects.edu.spring.task14.booklibrary.services.book.BookDtoService;
@@ -45,7 +47,7 @@ public class BooksPageController extends AbstractController {
     model.addAttribute("books",books);
     model.addAttribute("genres",genres);
     model.addAttribute("authors",authors);
-    model.addAttribute("newBook",new Book());
+    model.addAttribute("objBook",new BookDto());
     return "books";
   }
 
@@ -78,6 +80,20 @@ public class BooksPageController extends AbstractController {
   public String deleteAuthor(@RequestParam("id") long bookId) {
     bookService.deleteById(bookId);
     return "redirect:/books";
+  }
+
+
+  @PostMapping("/books/search")
+  public String orderSearchPage(@ModelAttribute("objBook") BookDto bookObj, Model model) {
+    Specification<Book> specification = new BookSpecification(bookObj);
+    List<BookDto> books = bookService.findAll(specification).stream().map(bookDtoService::toDto).collect(Collectors.toList());
+    List<AuthorDto>authors = authorService.findAll().stream().map(authorDtoService::toDto).collect(Collectors.toList());
+    List<Genre>genres = genreService.findAll();
+    model.addAttribute("books",books);
+    model.addAttribute("genres",genres);
+    model.addAttribute("authors",authors);
+    model.addAttribute("objBook",new BookDto());
+    return "books";
   }
 
 }

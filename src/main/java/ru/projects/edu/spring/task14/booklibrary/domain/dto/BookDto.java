@@ -4,7 +4,6 @@ import ru.projects.edu.spring.task14.booklibrary.domain.Author;
 import ru.projects.edu.spring.task14.booklibrary.domain.DBFile;
 import ru.projects.edu.spring.task14.booklibrary.domain.Genre;
 
-import javax.persistence.criteria.CriteriaBuilder;
 
 public class BookDto {
   private Long id;
@@ -16,6 +15,8 @@ public class BookDto {
   private Integer releaseYear;
   private DBFile coverImage;
 
+  public BookDto() {
+  }
 
   public BookDto(Long id, String name, Author author, Genre genre, Integer releaseYear) {
     this.id = id;
@@ -23,6 +24,9 @@ public class BookDto {
     this.author = author;
     this.genre = genre;
     this.releaseYear = releaseYear;
+    genreName = genre.getName();
+    authorFullName = String.format("%s %s.%s.",author.getFamily(), author.getFirstName().substring(0,1),
+        author.getPatronymic().substring(0,1));
   }
 
   public Long getId() {
@@ -43,8 +47,6 @@ public class BookDto {
 
 
   public String getAuthorFullName() {
-    authorFullName = String.format("%s %s.%s.",author.getFamily(), author.getFirstName().substring(0,1),
-        author.getPatronymic().substring(0,1));
     return authorFullName;
   }
 
@@ -64,9 +66,6 @@ public class BookDto {
     this.genre = genre;
   }
 
-  public String getGenreName() {
-    return genre.getName();
-  }
 
   public Integer getReleaseYear() {
     return releaseYear;
@@ -83,4 +82,23 @@ public class BookDto {
   public void setCoverImage(DBFile coverImage) {
     this.coverImage = coverImage;
   }
+
+  public void setAuthorFullName(String authorFullName) {
+    this.authorFullName = authorFullName;
+  }
+
+
+  public void setReleaseYear(Integer releaseYear) {
+    this.releaseYear = releaseYear;
+  }
+
+  public String getGenreName() {
+    return genreName;
+  }
+
+  public void setGenreName(String genreName) {
+    this.genreName = genreName;
+  }
+
+
 }
