@@ -8,7 +8,8 @@ import ru.projects.edu.spring.task14.booklibrary.domain.dto.AuthorDto;
 public class AuthorDtoService {
 
   public AuthorDto toDto(Author author){
-    return new AuthorDto(author.getId(),author.getFirstName(),author.getFamily(),author.getPatronymic());
+    AuthorDto authorDto = new AuthorDto(author.getId(),author.getFirstName(),author.getFamily(),author.getPatronymic());
+    return authorDto;
   }
 
   public  Author toDomainObject(AuthorDto authorDto){

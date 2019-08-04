@@ -75,27 +75,14 @@ public class BooksPageController extends AbstractController {
     model.addAttribute("authors",authors);
     return "editbook";
   }
-  @PostMapping("/books/add")
-  @Transactional
-  public String addBook(@ModelAttribute Book newBook) {
-    bookService.save(newBook);
-    return "redirect:/books";
-  }
 
   @PostMapping("/books/save")
   @Transactional
-  public String saveBook( @RequestParam("cover") MultipartFile cover, @ModelAttribute BookDto book) throws IOException {
-    if(cover!=null){
-      File dir = new File(storagePath.getPath());
-      if(!dir.exists()){
-        dir.mkdir();
-      }
-      String uuidFile = UUID.randomUUID().toString();
-      String fileName = uuidFile+"."+cover.getOriginalFilename();
-      cover.transferTo(new File(storagePath.getPath()+"/"+fileName));
-      DBFile dbFile = new DBFile(cover.getName(),cover.getContentType());
-      book.setCoverImage(dbFile);
+  public String saveBook( @RequestParam("cover") MultipartFile cover, @ModelAttribute BookDto book) {
+    if(!cover.isEmpty()){
+      book.setCoverImage(fileStorageService.getDbFile(cover));
     }
+    System.out.println(book.getCoverImage().getFileName());
     bookService.save(bookDtoService.toDomainObject(book));
     return "redirect:/books";
   }

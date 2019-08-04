@@ -16,7 +16,6 @@ public class BookDtoService {
     if(book.getCoverImage()!=null){
       bookDto.setCoverImage(book.getCoverImage());
     }
-    bookDto.setGenreName(genre.getName());
     return bookDto;
 
   }

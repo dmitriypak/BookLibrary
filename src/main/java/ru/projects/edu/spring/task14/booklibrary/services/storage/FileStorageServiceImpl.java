@@ -3,37 +3,44 @@ package ru.projects.edu.spring.task14.booklibrary.services.storage;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import ru.projects.edu.spring.task14.booklibrary.config.StoragePath;
 import ru.projects.edu.spring.task14.booklibrary.domain.DBFile;
 import ru.projects.edu.spring.task14.booklibrary.exception.FileStorageException;
 import ru.projects.edu.spring.task14.booklibrary.repository.DBFileRepository;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class FileStorageServiceImpl implements FileStorageService {
-
+  private final StoragePath storagePath;
   private DBFileRepository dbFileRepository;
 
-  public FileStorageServiceImpl(DBFileRepository dbFileRepository) {
+  public FileStorageServiceImpl(DBFileRepository dbFileRepository, StoragePath storagePath) {
     this.dbFileRepository = dbFileRepository;
-  }
-
-  @Override
-  public DBFile save(MultipartFile file) {
-    String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-    DBFile dbFile;
-    try{
-      dbFile = new DBFile(fileName, file.getContentType());
-      dbFileRepository.save(dbFile);
-    } catch (Exception ex) {
-      throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
-    }
-    return dbFile;
+    this.storagePath = storagePath;
   }
 
   @Override
   public Optional<DBFile> findById(Long id) {
     return dbFileRepository.findById(id);
+  }
+
+  public DBFile getDbFile(MultipartFile file) {
+    try {
+      File dir = new File(storagePath.getPath());
+      if (!dir.exists()) {
+        dir.mkdir();
+      }
+      String uuidFile = UUID.randomUUID().toString();
+      String fileName = uuidFile + "." + file.getOriginalFilename();
+      file.transferTo(new File(dir.getAbsolutePath() + "/" + fileName));
+      return new DBFile(fileName, file.getContentType());
+    } catch (IOException ex){
+      throw new FileStorageException(ex.getMessage());
+    }
+
   }
 }

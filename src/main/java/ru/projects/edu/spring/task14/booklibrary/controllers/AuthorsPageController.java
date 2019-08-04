@@ -36,17 +36,9 @@ public class AuthorsPageController {
     return "authors";
   }
 
-  @PostMapping("/authors/add")
-  @Transactional
-  public String addAuthor(@ModelAttribute AuthorDto newAuthor) {
-    authorService.save(authorDtoService.toDomainObject(newAuthor));
-    return "redirect:/authors";
-  }
-
   @PostMapping("/authors/save")
   @Transactional
   public String saveAuthor(@ModelAttribute AuthorDto author) {
-    System.out.println(author.getId());
     authorService.save(authorDtoService.toDomainObject(author));
     return "redirect:/authors";
   }

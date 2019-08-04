@@ -1,5 +1,4 @@
 package ru.projects.edu.spring.task14.booklibrary.domain;
-
 import javax.persistence.*;
 
 @Entity
@@ -24,7 +23,7 @@ public class Book {
   private Integer releaseYear;
 
   @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-  @JoinColumn(name = "cover_file_id", nullable = false)
+  @JoinColumn(name = "cover_file_id")
   private DBFile coverImage;
 
   public Book() {

@@ -24,7 +24,6 @@ public class BookDto {
     this.author = author;
     this.genre = genre;
     this.releaseYear = releaseYear;
-    genreName = genre.getName();
     authorFullName = String.format("%s %s.%s.",author.getFamily(), author.getFirstName().substring(0,1),
         author.getPatronymic().substring(0,1));
   }

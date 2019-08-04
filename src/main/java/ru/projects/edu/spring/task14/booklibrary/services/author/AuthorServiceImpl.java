@@ -6,7 +6,6 @@ import ru.projects.edu.spring.task14.booklibrary.repository.AuthorRepository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class AuthorServiceImpl implements AuthorService {

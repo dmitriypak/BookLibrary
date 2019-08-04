@@ -10,25 +10,17 @@ public class DBFile {
   @Column(name = "id")
   private Long id;
 
-  private String name;
+  @Column(name="name")
+  private String fileName;
   private String type;
-  private String path;
 
   public DBFile() {
   }
 
   public DBFile(String fileName, String fileType) {
-    this.name = fileName;
+    this.fileName = fileName;
     this.type = fileType;
   }
-
-
-  public DBFile(String fileName, String fileType, String path) {
-    this.name = fileName;
-    this.type = fileType;
-    this.path = path;
-  }
-
 
   public Long getId() {
     return id;
@@ -38,12 +30,12 @@ public class DBFile {
     this.id = id;
   }
 
-  public String getName() {
-    return name;
+  public String getFileName() {
+    return fileName;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setFileName(String fileName) {
+    this.fileName = fileName;
   }
 
   public String getType() {
@@ -52,18 +44,6 @@ public class DBFile {
 
   public void setType(String type) {
     this.type = type;
-  }
-
-  public String getPath() {
-    return path;
-  }
-
-  public void setPath(String path) {
-    this.path = path;
-  }
-
-  public String getFullPath() {
-    return  path+"/"+name;
   }
 
 }

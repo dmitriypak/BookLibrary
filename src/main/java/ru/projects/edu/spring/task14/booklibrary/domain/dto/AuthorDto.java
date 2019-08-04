@@ -1,5 +1,4 @@
 package ru.projects.edu.spring.task14.booklibrary.domain.dto;
-
 public class AuthorDto {
   private Long id;
   private String firstName;
@@ -11,14 +10,14 @@ public class AuthorDto {
 
   }
 
-  public AuthorDto(long id, String firstName, String family, String patronymic) {
+  public AuthorDto(Long id, String firstName, String family, String patronymic) {
     this.id = id;
     this.firstName = firstName;
     this.family = family;
     this.patronymic = patronymic;
   }
 
-  public long getId() {
+  public Long getId() {
     return id;
   }
 

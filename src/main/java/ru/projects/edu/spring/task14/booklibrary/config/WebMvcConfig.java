@@ -8,22 +8,18 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@ConfigurationProperties("upload")
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
+  private StoragePath storagePath;
+
+  public WebMvcConfig(StoragePath storagePath) {
+    this.storagePath = storagePath;
+  }
+
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("/img/**").addResourceLocations("file://"+path+"/");
-  }
-
-  private String path;
-
-  public String getPath() {
-    return path;
-  }
-
-  public void setPath(String path) {
-    this.path = path;
+    registry.addResourceHandler("/images/**")
+        .addResourceLocations("file:"+storagePath.getPath()+"/");
   }
 }

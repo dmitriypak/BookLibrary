@@ -1,98 +1,125 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
-        <title>Авторы</title>
-    </head>
-    <body>
-        <div th:insert="~{fragments/menu-nav-bar-authors :: menu}"></div>
-        <div class="container">
-            <table class="table table-striped" id="table">
-                <thead>
-                <tr>
-                <tr>
-                    <th scope="col">Фамилия</th>
-                    <th scope="col">Имя</th>
-                    <th scope="col">Отчество</th>
-                    <th scope="col">
-                        <button class="btn btn-success" data-toggle="modal"
-                                data-target="#addAuthor">Добавить автора
-                        </button>
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="author,i : ${authors}">
-                    <td th:text="${author.family}"></td>
-                    <td th:text="${author.firstName}"></td>
-                    <td th:text="${author.patronymic}"></td>
-                    <td class="table__button">
-                        <form action="#" th:action="@{/authors/edit(id=${author.id})}" method="GET">
-                            <input type="hidden" name="id" th:value="${author.id}" />
-                            <button type="submit" class="btn btn-warning btn-sm" title="Редактировать автора">
-                                Редактировать
-                            </button>
-                        </form>
-                    </td>
-                    <td class="table__button">
-                        <form action="#" th:action="@{/authors/delete(id=${author.id})}" method="POST">
-                            <input type="hidden" name="authorId" th:value="${author.id}" />
-                            <button type="submit" class="btn btn-danger btn-sm"
-                                    onclick="if (!(confirm('Удалить автора?'))) return false">
-                                Удалить
-                            </button>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+    <title>Авторы</title>
+</head>
+<body>
+<div th:insert="~{fragments/menu-nav-bar-authors :: menu}"></div>
+<div class="container">
+    <table class="table table-striped" id="table">
+        <thead>
+        <tr>
+        <tr>
+            <th scope="col">Фамилия</th>
+            <th scope="col">Имя</th>
+            <th scope="col">Отчество</th>
+            <th scope="col">
+                <button class="btn btn-success" data-toggle="modal"
+                        data-target="#addAuthor">Добавить автора
+                </button>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="author,i : ${authors}">
+            <td th:text="${author.family}"></td>
+            <td th:text="${author.firstName}"></td>
+            <td th:text="${author.patronymic}"></td>
+            <td class="table__button">
+                <form action="#" th:action="@{/authors/edit(id=${author.id})}" method="GET">
+                    <input type="hidden" name="id" th:value="${author.id}"/>
+                    <button type="submit" class="btn btn-warning btn-sm" title="Редактировать автора">
+                        Редактировать
+                    </button>
+                </form>
+            </td>
+            <td class="table__button">
+                <form action="#" th:action="@{/authors/delete(id=${author.id})}" method="POST">
+                    <input type="hidden" name="authorId" th:value="${author.id}"/>
+                    <button type="submit" class="btn btn-danger btn-sm"
+                            onclick="if (!(confirm('Удалить автора?'))) return false">
+                        Удалить
+                    </button>
 
-                        </form>
-                    </td>
+                </form>
+            </td>
 
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <!-- Modal -->
-        <div class="modal fade" id="addAuthor" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Добавление автора</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <form id="form" class="needs-validation" validate
-                          th:action="@{/authors/add}" th:object="${newAuthor}" method="post">
-                        <div class="modal-body">
-                            <div class="form-row">
-                                <div class="col-12">
-                                    <input type="text" class="form-control form-control_customize" name="name"
-                                           placeholder="Фамилия" required th:field="*{family}">
-                                </div>
-                                <div class="col-12">
-                                    <input type="text" class="form-control form-control_customize" name="name"
-                                           placeholder="Имя" required th:field="*{firstName}">
-                                </div>
-                                <div class="col-12">
-                                    <input type="text" class="form-control form-control_customize" name="name"
-                                           placeholder="Отчество" th:field="*{patronymic}">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-outline-primary btn-outline_customize btn_gray" data-dismiss="modal"
-                                    aria-label="Close" th:value="Reset">Отмена
-                            </button>
-                            <button class="btn btn-primary btn_customize btn_green" type="submit" id="add" th:value="Save">
-                                Добавить
-                            </button>
-                        </div>
-                    </form>
-                </div>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="addAuthor" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Добавление автора</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
             </div>
+            <form id="form" class="needs-validation" validate
+                  th:action="@{/authors/save}" th:object="${newAuthor}" method="post">
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="col-12">
+                            <input type="text" class="form-control form-control_customize" name="name"
+                                   placeholder="Фамилия" required th:field="*{family}">
+                            <div class="invalid-feedback">Введите фамилию автора</div>
+                        </div>
+                        <div class="col-12">
+                            <input type="text" class="form-control form-control_customize" name="name"
+                                   placeholder="Имя" required th:field="*{firstName}">
+                            <div class="invalid-feedback">Введите имя автора</div>
+                        </div>
+                        <div class="col-12">
+                            <input type="text" class="form-control form-control_customize" name="name"
+                                   placeholder="Отчество"  required th:field="*{patronymic}">
+                            <div class="invalid-feedback">Введите отчество автора</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline-primary btn-outline_customize btn_gray" data-dismiss="modal"
+                            aria-label="Close" th:value="Reset">Отмена
+                    </button>
+                    <button class="btn btn-primary btn_customize btn_green" type="submit" id="add" th:value="Save">
+                        Добавить
+                    </button>
+                </div>
+            </form>
         </div>
-    </body>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+    </div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+        integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+<script src="js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+<script>
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+
+</script>
 </html>
