@@ -37,10 +37,19 @@ public class FileStorageServiceImpl implements FileStorageService {
       String uuidFile = UUID.randomUUID().toString();
       String fileName = uuidFile + "." + file.getOriginalFilename();
       file.transferTo(new File(dir.getAbsolutePath() + "/" + fileName));
-      return new DBFile(fileName, file.getContentType());
+      DBFile dbFile = dbFileRepository.save(new DBFile(fileName, file.getContentType()));
+      return dbFile;
     } catch (IOException ex){
       throw new FileStorageException(ex.getMessage());
     }
+  }
 
+  @Override
+  public void delete(DBFile dbFile) {
+    File delFile = new File(storagePath.getPath()+"/"+dbFile.getFileName());
+    if(delFile.exists()){
+      delFile.delete();
+    }
+    dbFileRepository.delete(dbFile);
   }
 }

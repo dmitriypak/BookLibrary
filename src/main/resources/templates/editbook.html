@@ -12,7 +12,7 @@
         <h5 class="modal-title">Редактирование книги</h5>
     </div>
     <form id="form" class="needs-validation" enctype="multipart/form-data" novalidate
-          th:action="@{/books/save}" th:object="${book}" method="post">
+          th:action="@{/books/update}" th:object="${book}" method="post">
         <div class="form-group">
             <div class="form-row">
                 <input type="hidden" name="id" th:value="*{id}" />
@@ -23,7 +23,7 @@
                 <p></p>
                 <div class="col-12">
                     <select th:field="*{author}" class="custom-select custom-select-lg mb-3">
-                        <option value=""> --</option>
+                        <option value="">--</option>
                         <option th:each="author : ${authors}"
                                 th:value="${author.id}"
                                 th:text="${author.family}">Фамилия
@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-12">
                     <select th:field="*{genre}" class="custom-select custom-select-lg mb-3">
-                        <option value=""> --</option>
+                        <option value="">--</option>
                         <option th:each="genre : ${genres}"
                                 th:value="${genre.id}"
                                 th:text="${genre.name}">Жанр

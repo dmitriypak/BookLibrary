@@ -9,12 +9,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import ru.projects.edu.spring.task14.booklibrary.config.StoragePath;
-import ru.projects.edu.spring.task14.booklibrary.config.WebMvcConfig;
 import ru.projects.edu.spring.task14.booklibrary.domain.Book;
 import ru.projects.edu.spring.task14.booklibrary.domain.DBFile;
 import ru.projects.edu.spring.task14.booklibrary.domain.Genre;
-import ru.projects.edu.spring.task14.booklibrary.domain.dto.BookDto;
 import ru.projects.edu.spring.task14.booklibrary.domain.dto.AuthorDto;
+import ru.projects.edu.spring.task14.booklibrary.domain.dto.BookDto;
 import ru.projects.edu.spring.task14.booklibrary.repository.specification.BookSpecification;
 import ru.projects.edu.spring.task14.booklibrary.services.author.AuthorDtoService;
 import ru.projects.edu.spring.task14.booklibrary.services.author.AuthorService;
@@ -24,10 +23,7 @@ import ru.projects.edu.spring.task14.booklibrary.services.genre.GenreService;
 import ru.projects.edu.spring.task14.booklibrary.services.storage.FileStorageService;
 
 import javax.transaction.Transactional;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Controller
@@ -78,11 +74,28 @@ public class BooksPageController extends AbstractController {
 
   @PostMapping("/books/save")
   @Transactional
-  public String saveBook( @RequestParam("cover") MultipartFile cover, @ModelAttribute BookDto book) {
-    if(!cover.isEmpty()){
+  public String saveBook( @RequestParam(required = false) MultipartFile cover, @ModelAttribute BookDto book) {
+    if(cover!=null && !cover.isEmpty()){
       book.setCoverImage(fileStorageService.getDbFile(cover));
     }
-    System.out.println(book.getCoverImage().getFileName());
+    bookService.save(bookDtoService.toDomainObject(book));
+    return "redirect:/books";
+  }
+
+  @PostMapping("/books/update")
+  @Transactional
+  public String updateBook( @RequestParam(required = false) MultipartFile cover, @ModelAttribute BookDto book) {
+    BookDto bookDto = bookDtoService.toDto(bookService.findById(book.getId()).get());
+    //Как получить изображение со страницы?
+    DBFile oldCover = bookDto.getCoverImage();
+    book.setCoverImage(oldCover);
+
+    if(cover!=null && !cover.isEmpty()){
+      book.setCoverImage(fileStorageService.getDbFile(cover));
+      if(oldCover!=null) {
+        fileStorageService.delete(bookDto.getCoverImage());
+      }
+    }
     bookService.save(bookDtoService.toDomainObject(book));
     return "redirect:/books";
   }
@@ -93,7 +106,6 @@ public class BooksPageController extends AbstractController {
     bookService.deleteById(bookId);
     return "redirect:/books";
   }
-
 
   @PostMapping("/books/search")
   public String orderSearchPage(@ModelAttribute("objBook") BookDto bookObj, Model model) {

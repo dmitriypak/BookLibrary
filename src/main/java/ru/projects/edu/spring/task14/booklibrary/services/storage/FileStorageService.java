@@ -9,4 +9,5 @@ import java.util.Optional;
 public interface FileStorageService {
   Optional<DBFile> findById(Long id);
   DBFile getDbFile(MultipartFile file);
+  void delete(DBFile dbFile);
 }

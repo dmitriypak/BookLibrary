@@ -83,7 +83,7 @@
                         <div class="col-12">
                             <p>Автор</p>
                             <select class="custom-select" required th:field="*{author}" >
-                                <option value=""> --</option>
+                                <option value="">--</option>
                                 <option th:each="author : ${authors}"
                                         th:value="${author.id}"
                                         th:text="${author.family}">Фамилия
@@ -94,7 +94,7 @@
                         <div class="col-12">
                             <p>Жанр</p>
                             <select class="custom-select" required th:field="*{genre}">
-                                <option value=""> --</option>
+                                <option value="">--</option>
                                 <option th:each="genre : ${genres}"
                                         th:value="${genre.id}"
                                         th:text="${genre.name}">Жанр

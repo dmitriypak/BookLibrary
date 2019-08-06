@@ -1,6 +1,4 @@
 package ru.projects.edu.spring.task14.booklibrary.repository.specification;
-
-
 import org.springframework.data.jpa.domain.Specification;
 import ru.projects.edu.spring.task14.booklibrary.domain.Book;
 import ru.projects.edu.spring.task14.booklibrary.domain.dto.BookDto;
@@ -29,16 +27,19 @@ public class BookSpecification implements Specification<Book> {
     Join joinGenre = root.join("genre");
     Predicate p = cb.conjunction();
     if (filter.getAuthorFullName() != null) {
-      p.getExpressions().add(cb.or(cb.like(cb.lower(joinAuthor.get("family")), "%"+filter.getAuthorFullName()+"%"),
-          cb.like(cb.lower(joinAuthor.get("firstName")), "%"+filter.getAuthorFullName()+"%"),
-          cb.or(cb.like(cb.lower(joinAuthor.get("patronymic")), "%"+filter.getAuthorFullName()+"%"))));
+      p.getExpressions().add(cb.or(cb.like(cb.lower(joinAuthor.get("family")), "%"+filter.getAuthorFullName().toLowerCase()+"%"),
+          cb.like(cb.lower(joinAuthor.get("firstName")), "%"+filter.getAuthorFullName().toLowerCase()+"%"),
+          cb.or(cb.like(cb.lower(joinAuthor.get("patronymic")), "%"+filter.getAuthorFullName().toLowerCase()+"%"))));
     }
 
     if(filter.getReleaseYear()!=null){
       p.getExpressions().add(cb.equal(root.get("releaseYear"),filter.getReleaseYear()));
     }
     if(filter.getGenreName()!=null){
-      p.getExpressions().add(cb.like(cb.lower(joinGenre.get("name")), "%"+filter.getGenreName()+"%"));
+      p.getExpressions().add(cb.like(cb.lower(joinGenre.get("name")), "%"+filter.getGenreName().toLowerCase()+"%"));
+    }
+    if(filter.getName()!=null){
+      p.getExpressions().add(cb.like(cb.lower(root.get("name")), "%"+filter.getName().toLowerCase()+"%"));
     }
     return p;
   }
