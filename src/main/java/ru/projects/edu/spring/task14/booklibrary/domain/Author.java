@@ -29,6 +29,13 @@ public class Author {
     this.patronymic = patronymic;
   }
 
+  public Author(String firstName, String family, String patronymic) {
+    this.firstName = firstName;
+    this.family = family;
+    this.patronymic = patronymic;
+  }
+
+
   public Long getId() {
     return id;
   }

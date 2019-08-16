@@ -38,6 +38,15 @@ public class Book {
     this.coverImage = coverImage;
   }
 
+  public Book(String name, Author author, Genre genre, Integer releaseYear,DBFile coverImage) {
+    this.name = name;
+    this.author = author;
+    this.genre = genre;
+    this.releaseYear = releaseYear;
+    this.coverImage = coverImage;
+  }
+
+
   public Long getId() {
     return id;
   }

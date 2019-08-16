@@ -22,6 +22,12 @@ public class DBFile {
     this.type = fileType;
   }
 
+  public DBFile(Long id, String fileName, String fileType) {
+    this.id = id;
+    this.fileName = fileName;
+    this.type = fileType;
+  }
+
   public Long getId() {
     return id;
   }
