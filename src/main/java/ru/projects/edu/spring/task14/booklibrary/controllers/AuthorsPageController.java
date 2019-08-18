@@ -18,7 +18,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
-public class AuthorsPageController {
+public class AuthorsPageController extends AbstractController {
 
   private AuthorService authorService;
   private AuthorDtoService authorDtoService;
@@ -29,7 +29,7 @@ public class AuthorsPageController {
   }
 
   @GetMapping("/authors")
-  public String listBooksPage(Model model) {
+  public String listAuthors(Model model) {
     List<AuthorDto>authors = authorService.findAll().stream().map(authorDtoService::toDto).collect(Collectors.toList());
     model.addAttribute("authors",authors);
     model.addAttribute("newAuthor",new AuthorDto());

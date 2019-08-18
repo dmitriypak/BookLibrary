@@ -14,7 +14,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Controller
-public class GenresPageController {
+public class GenresPageController extends AbstractController {
   private GenreService genreService;
 
   public GenresPageController(GenreService genreService) {

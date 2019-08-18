@@ -102,13 +102,13 @@ public class BooksPageController extends AbstractController {
 
   @PostMapping("/books/delete")
   @Transactional
-  public String deleteAuthor(@RequestParam("id") long bookId) {
+  public String deleteBook(@RequestParam("id") long bookId) {
     bookService.deleteById(bookId);
     return "redirect:/books";
   }
 
   @PostMapping("/books/search")
-  public String orderSearchPage(@ModelAttribute("objBook") BookDto bookObj, Model model) {
+  public String bookSearchPage(@ModelAttribute("objBook") BookDto bookObj, Model model) {
     Specification<Book> specification = new BookSpecification(bookObj);
     List<BookDto> books = bookService.findAll(specification).stream().map(bookDtoService::toDto).collect(Collectors.toList());
     List<AuthorDto>authors = authorService.findAll().stream().map(authorDtoService::toDto).collect(Collectors.toList());
