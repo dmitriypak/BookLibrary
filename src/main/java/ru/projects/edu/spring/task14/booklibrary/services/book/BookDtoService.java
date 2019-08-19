@@ -1,10 +1,8 @@
 package ru.projects.edu.spring.task14.booklibrary.services.book;
 
 import org.springframework.stereotype.Service;
-import ru.projects.edu.spring.task14.booklibrary.domain.Author;
 import ru.projects.edu.spring.task14.booklibrary.domain.Book;
 import ru.projects.edu.spring.task14.booklibrary.domain.Genre;
-import ru.projects.edu.spring.task14.booklibrary.domain.dto.AuthorDto;
 import ru.projects.edu.spring.task14.booklibrary.domain.dto.BookDto;
 
 @Service

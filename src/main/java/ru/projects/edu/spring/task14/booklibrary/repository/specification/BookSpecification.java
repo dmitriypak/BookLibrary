@@ -26,7 +26,7 @@ public class BookSpecification implements Specification<Book> {
     Join joinAuthor = root.join("author");
     Join joinGenre = root.join("genre");
     Predicate p = cb.conjunction();
-    if (filter.getAuthorFullName() != null) {
+    if (filter.getAuthorFullName() != null && !filter.getAuthorFullName().isEmpty()) {
       p.getExpressions().add(cb.or(cb.like(cb.lower(joinAuthor.get("family")), "%"+filter.getAuthorFullName().toLowerCase()+"%"),
           cb.like(cb.lower(joinAuthor.get("firstName")), "%"+filter.getAuthorFullName().toLowerCase()+"%"),
           cb.or(cb.like(cb.lower(joinAuthor.get("patronymic")), "%"+filter.getAuthorFullName().toLowerCase()+"%"))));
@@ -35,10 +35,10 @@ public class BookSpecification implements Specification<Book> {
     if(filter.getReleaseYear()!=null){
       p.getExpressions().add(cb.equal(root.get("releaseYear"),filter.getReleaseYear()));
     }
-    if(filter.getGenreName()!=null){
-      p.getExpressions().add(cb.like(cb.lower(joinGenre.get("name")), "%"+filter.getGenreName().toLowerCase()+"%"));
+    if(filter.getGenreName()!=null && !filter.getGenreName().isEmpty()){
+      p.getExpressions().add(cb.like(cb.lower(joinGenre.get("name")), "'%"+filter.getGenreName().toLowerCase()+"%'"));
     }
-    if(filter.getName()!=null){
+    if(filter.getName()!=null && !filter.getName().isEmpty()){
       p.getExpressions().add(cb.like(cb.lower(root.get("name")), "%"+filter.getName().toLowerCase()+"%"));
     }
     return p;
