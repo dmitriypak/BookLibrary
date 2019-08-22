@@ -18,12 +18,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
-public class AuthorsPageController extends AbstractController {
+public class AuthorsPageControllerExceptionHandler {
 
   private AuthorService authorService;
   private AuthorDtoService authorDtoService;
 
-  public AuthorsPageController(AuthorService authorService, AuthorDtoService authorDtoService) {
+  public AuthorsPageControllerExceptionHandler(AuthorService authorService, AuthorDtoService authorDtoService) {
     this.authorService = authorService;
     this.authorDtoService = authorDtoService;
   }
@@ -53,8 +53,9 @@ public class AuthorsPageController extends AbstractController {
 
   @GetMapping("/authors/edit")
   public String editAuthor(@RequestParam("id") Long authorId, Model model) {
-    Optional<Author> author = authorService.findById(authorId);
-    model.addAttribute("author",author.get());
+    Optional<Author> authorOpt = authorService.findById(authorId);
+    Author author = authorOpt.orElseThrow(()->new RuntimeException("Author not found"));
+    model.addAttribute("author",author);
     return "editauthor";
   }
 }

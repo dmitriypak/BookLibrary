@@ -14,10 +14,10 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Controller
-public class GenresPageController extends AbstractController {
+public class GenresPageControllerExceptionHandler {
   private GenreService genreService;
 
-  public GenresPageController(GenreService genreService) {
+  public GenresPageControllerExceptionHandler(GenreService genreService) {
     this.genreService = genreService;
   }
 

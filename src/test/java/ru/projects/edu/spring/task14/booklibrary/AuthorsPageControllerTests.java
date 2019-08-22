@@ -2,19 +2,14 @@ package ru.projects.edu.spring.task14.booklibrary;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.validation.support.BindingAwareModelMap;
-import ru.projects.edu.spring.task14.booklibrary.controllers.AuthorsPageController;
+import ru.projects.edu.spring.task14.booklibrary.controllers.AuthorsPageControllerExceptionHandler;
 import ru.projects.edu.spring.task14.booklibrary.domain.Author;
-import ru.projects.edu.spring.task14.booklibrary.domain.dto.AuthorDto;
 import ru.projects.edu.spring.task14.booklibrary.services.author.AuthorService;
 
 import java.util.ArrayList;
@@ -32,7 +27,7 @@ public class AuthorsPageControllerTests {
   @Autowired
   private ObjectMapper objectMapper;
   @Autowired
-  private AuthorsPageController authorsPageController;
+  private AuthorsPageControllerExceptionHandler authorsPageController;
   @MockBean
   private AuthorService authorService;
 

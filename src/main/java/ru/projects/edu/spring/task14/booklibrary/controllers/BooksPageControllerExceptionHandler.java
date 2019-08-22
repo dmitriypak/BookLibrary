@@ -24,10 +24,11 @@ import ru.projects.edu.spring.task14.booklibrary.services.storage.FileStorageSer
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
-public class BooksPageController extends AbstractController {
+public class BooksPageControllerExceptionHandler {
   private final AuthorService authorService;
   private final BookService bookService;
   private final AuthorDtoService authorDtoService;
@@ -36,9 +37,9 @@ public class BooksPageController extends AbstractController {
   private final FileStorageService fileStorageService;
   private final StoragePath storagePath;
 
-  public BooksPageController(AuthorService authorService, BookService bookService, AuthorDtoService authorDtoService,
-         BookDtoService bookDtoService, GenreService genreService, FileStorageService fileStorageService,
-                             StoragePath storagePath) {
+  public BooksPageControllerExceptionHandler(AuthorService authorService, BookService bookService, AuthorDtoService authorDtoService,
+                                             BookDtoService bookDtoService, GenreService genreService, FileStorageService fileStorageService,
+                                             StoragePath storagePath) {
     this.authorService = authorService;
     this.bookService = bookService;
     this.authorDtoService = authorDtoService;
@@ -62,10 +63,10 @@ public class BooksPageController extends AbstractController {
 
   @GetMapping("/books/edit")
   public String editBooksPage(@RequestParam("id") long bookId, Model model) {
-    BookDto book = bookDtoService.toDto(bookService.findById(bookId).get());
+    Optional<Book> bookOpt = bookService.findById(bookId);
+    BookDto book = bookDtoService.toDto(bookOpt.orElseThrow(()->new RuntimeException("Book not found")));
     List<AuthorDto>authors = authorService.findAll().stream().map(authorDtoService::toDto).collect(Collectors.toList());
     List<Genre>genres = genreService.findAll();
-
     model.addAttribute("book",book);
     model.addAttribute("genres",genres);
     model.addAttribute("authors",authors);
@@ -89,7 +90,6 @@ public class BooksPageController extends AbstractController {
     //Как получить изображение со страницы?
     DBFile oldCover = bookDto.getCoverImage();
     book.setCoverImage(oldCover);
-
     if(cover!=null && !cover.isEmpty()){
       book.setCoverImage(fileStorageService.getDbFile(cover));
       if(oldCover!=null) {
