@@ -28,7 +28,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
-public class BooksPageControllerExceptionHandler {
+public class BooksPageController {
   private final AuthorService authorService;
   private final BookService bookService;
   private final AuthorDtoService authorDtoService;
@@ -37,9 +37,9 @@ public class BooksPageControllerExceptionHandler {
   private final FileStorageService fileStorageService;
   private final StoragePath storagePath;
 
-  public BooksPageControllerExceptionHandler(AuthorService authorService, BookService bookService, AuthorDtoService authorDtoService,
-                                             BookDtoService bookDtoService, GenreService genreService, FileStorageService fileStorageService,
-                                             StoragePath storagePath) {
+  public BooksPageController(AuthorService authorService, BookService bookService, AuthorDtoService authorDtoService,
+                             BookDtoService bookDtoService, GenreService genreService, FileStorageService fileStorageService,
+                             StoragePath storagePath) {
     this.authorService = authorService;
     this.bookService = bookService;
     this.authorDtoService = authorDtoService;

@@ -3,10 +3,13 @@ package ru.projects.edu.spring.task14.booklibrary;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.projects.edu.spring.task14.booklibrary.domain.Author;
 import ru.projects.edu.spring.task14.booklibrary.domain.Book;
@@ -28,11 +31,11 @@ public class BookServiceTests {
 
   @MockBean
   private BookRepository bookRepository;
-  @MockBean
+  @Mock
   private Author author;
-  @MockBean
+  @Mock
   private Genre genre;
-  @MockBean
+  @Mock
   private DBFile cover;
 
   @BeforeEach

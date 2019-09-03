@@ -18,12 +18,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
-public class AuthorsPageControllerExceptionHandler {
+public class AuthorsPageController {
 
   private AuthorService authorService;
   private AuthorDtoService authorDtoService;
 
-  public AuthorsPageControllerExceptionHandler(AuthorService authorService, AuthorDtoService authorDtoService) {
+  public AuthorsPageController(AuthorService authorService, AuthorDtoService authorDtoService) {
     this.authorService = authorService;
     this.authorDtoService = authorDtoService;
   }
