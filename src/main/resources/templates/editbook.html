@@ -53,6 +53,7 @@
                 <div class="col-12">
                     <div class="form-group">
                         <label for="cover-scan">Выберите обложку</label>
+                        <input type="hidden" class="form-control-file" id="cover-scan-hidden" th:field="${book.coverImage}" name="db_cover">
                         <input type="file" class="form-control-file" id="cover-scan" name="cover">
                     </div>
                 </div>

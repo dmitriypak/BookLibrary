@@ -86,15 +86,11 @@ public class BooksPageController {
   @PostMapping("/books/update")
   @Transactional
   public String updateBook( @RequestParam(required = false) MultipartFile cover, @ModelAttribute BookDto book) {
-    BookDto bookDto = bookDtoService.toDto(bookService.findById(book.getId()).get());
-    //Как получить изображение со страницы?
-    DBFile oldCover = bookDto.getCoverImage();
-    book.setCoverImage(oldCover);
     if(cover!=null && !cover.isEmpty()){
-      book.setCoverImage(fileStorageService.getDbFile(cover));
-      if(oldCover!=null) {
-        fileStorageService.delete(bookDto.getCoverImage());
+      if(book.getCoverImage()!=null) {
+        fileStorageService.delete(book.getCoverImage());
       }
+      book.setCoverImage(fileStorageService.getDbFile(cover));
     }
     bookService.save(bookDtoService.toDomainObject(book));
     return "redirect:/books";
