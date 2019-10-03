@@ -1,32 +1,5 @@
-server:
-  port: 9595
 spring:
-  datasource:
-    initialization-mode: always
-    url: jdbc:postgresql://localhost:5432/booklibrary4
-    username: postgres
-    password: postgres
-    driver-class-name: org.postgresql.Driver
-    mvc:
-      static-path-pattern=/resources/**:
-  jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQL9Dialect
-        ddl-auto: none
-        jdbc:
-          lob:
-            non_contextual_creation: true
-    show-sql: true
-  logging:
-    level:
-      org.springframework.web: DEBUG
-      org.hibernate: ALL
-      root: DEBUG
-    pattern:
-      console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
-      file: "%d %p %c{1.} [%t] %m%n"
-    file: app.log
-localization: ru
-upload:
-  path: C:\Users\HP\Documents\IdeaProjects\!OTUS\14\booklibrary\images
+  profiles:
+    active:
+#      - prod
+      - test

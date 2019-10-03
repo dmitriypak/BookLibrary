@@ -1,6 +1,5 @@
-create schema prod;
-
-create table prod.author
+DROP TABLE IF EXISTS author;
+create table author
 (
   id         bigserial not null
     constraint author_pk
@@ -12,9 +11,10 @@ create table prod.author
 
 
 create unique index author_id_uindex
-  on prod.author (id);
+  on author (id);
 
-create table prod.book
+DROP TABLE IF EXISTS book;
+create table book
 (
   id            bigserial not null
     constraint book_pk
@@ -27,9 +27,10 @@ create table prod.book
 );
 
 create unique index book_id_uindex
-  on prod.book (id);
+  on book (id);
 
-create table prod.genre
+DROP TABLE IF EXISTS genre;
+create table genre
 (
   id   bigserial    not null
     constraint genre_pk
@@ -39,9 +40,9 @@ create table prod.genre
 
 
 create unique index genre_id_uindex
-  on prod.genre (id);
+  on genre (id);
 
-create table prod.db_files
+create table db_files
 (
   id   bigserial not null
     constraint db_file_pk
@@ -52,5 +53,5 @@ create table prod.db_files
 
 
 create unique index db_file_id_uindex
-  on prod.db_files (id);
+  on db_files (id);
 
