@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS author;
+--DROP TABLE IF EXISTS author;
 create table author
 (
   id         bigserial not null
@@ -13,7 +13,7 @@ create table author
 create unique index author_id_uindex
   on author (id);
 
-DROP TABLE IF EXISTS book;
+--DROP TABLE IF EXISTS book;
 create table book
 (
   id            bigserial not null
@@ -29,7 +29,7 @@ create table book
 create unique index book_id_uindex
   on book (id);
 
-DROP TABLE IF EXISTS genre;
+--DROP TABLE IF EXISTS genre;
 create table genre
 (
   id   bigserial    not null
