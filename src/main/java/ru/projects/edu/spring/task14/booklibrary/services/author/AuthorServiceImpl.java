@@ -2,23 +2,26 @@ package ru.projects.edu.spring.task14.booklibrary.services.author;
 
 import org.springframework.stereotype.Service;
 import ru.projects.edu.spring.task14.booklibrary.domain.Author;
+import ru.projects.edu.spring.task14.booklibrary.domain.dto.AuthorDto;
 import ru.projects.edu.spring.task14.booklibrary.repository.AuthorRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthorServiceImpl implements AuthorService {
+  private final AuthorDtoService authorDtoService;
+  private final AuthorRepository authorRepository;
 
-  private AuthorRepository authorRepository;
-
-  public AuthorServiceImpl(AuthorRepository authorRepository) {
+  public AuthorServiceImpl(AuthorRepository authorRepository, AuthorDtoService authorDtoService) {
     this.authorRepository = authorRepository;
+    this.authorDtoService = authorDtoService;
   }
 
   @Override
-  public List<Author> findAll() {
-    return authorRepository.findAll();
+  public List<AuthorDto> findAll() {
+    return authorRepository.findAll().stream().map(authorDtoService::toDto).collect(Collectors.toList());
   }
 
   @Override

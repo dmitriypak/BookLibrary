@@ -8,7 +8,7 @@ import java.util.List;
 
 @Service
 public class GenreServiceImpl implements GenreService {
-  private GenreRepository genreRepository;
+  private final GenreRepository genreRepository;
 
   public GenreServiceImpl(GenreRepository genreRepository) {
     this.genreRepository = genreRepository;

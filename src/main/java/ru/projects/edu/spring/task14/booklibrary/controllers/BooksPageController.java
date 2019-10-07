@@ -53,7 +53,7 @@ public class BooksPageController {
   public String listBooksPage(Model model) {
     List<BookDto>books = bookService.findAll().stream().map(bookDtoService::toDto).collect(Collectors.toList());
     List<Genre>genres = genreService.findAll();
-    List<AuthorDto>authors = authorService.findAll().stream().map(authorDtoService::toDto).collect(Collectors.toList());
+    List<AuthorDto>authors = authorService.findAll();
     model.addAttribute("books",books);
     model.addAttribute("genres",genres);
     model.addAttribute("authors",authors);
@@ -65,7 +65,7 @@ public class BooksPageController {
   public String editBooksPage(@RequestParam("id") long bookId, Model model) {
     Optional<Book> bookOpt = bookService.findById(bookId);
     BookDto book = bookDtoService.toDto(bookOpt.orElseThrow(()->new RuntimeException("Book not found")));
-    List<AuthorDto>authors = authorService.findAll().stream().map(authorDtoService::toDto).collect(Collectors.toList());
+    List<AuthorDto>authors = authorService.findAll();
     List<Genre>genres = genreService.findAll();
     model.addAttribute("book",book);
     model.addAttribute("genres",genres);
@@ -106,8 +106,8 @@ public class BooksPageController {
   @PostMapping("/books/search")
   public String bookSearchPage(@ModelAttribute("objBook") BookDto bookObj, Model model) {
     Specification<Book> specification = new BookSpecification(bookObj);
-    List<BookDto> books = bookService.findAll(specification).stream().map(bookDtoService::toDto).collect(Collectors.toList());
-    List<AuthorDto>authors = authorService.findAll().stream().map(authorDtoService::toDto).collect(Collectors.toList());
+    List<BookDto> books = bookService.findAll(specification);
+    List<AuthorDto>authors = authorService.findAll();
     List<Genre>genres = genreService.findAll();
     model.addAttribute("books",books);
     model.addAttribute("genres",genres);

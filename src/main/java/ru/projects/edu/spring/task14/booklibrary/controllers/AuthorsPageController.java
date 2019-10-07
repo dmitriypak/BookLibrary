@@ -15,13 +15,12 @@ import ru.projects.edu.spring.task14.booklibrary.services.author.AuthorService;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Controller
 public class AuthorsPageController {
 
-  private AuthorService authorService;
-  private AuthorDtoService authorDtoService;
+  private final AuthorService authorService;
+  private final AuthorDtoService authorDtoService;
 
   public AuthorsPageController(AuthorService authorService, AuthorDtoService authorDtoService) {
     this.authorService = authorService;
@@ -30,7 +29,7 @@ public class AuthorsPageController {
 
   @GetMapping("/authors")
   public String listAuthors(Model model) {
-    List<AuthorDto>authors = authorService.findAll().stream().map(authorDtoService::toDto).collect(Collectors.toList());
+    List<AuthorDto>authors = authorService.findAll();
     model.addAttribute("authors",authors);
     model.addAttribute("newAuthor",new AuthorDto());
     return "authors";

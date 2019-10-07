@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
-  private StoragePath storagePath;
+  private final StoragePath storagePath;
 
   public WebMvcConfig(StoragePath storagePath) {
     this.storagePath = storagePath;

@@ -1,30 +1,21 @@
 package ru.projects.edu.spring.task14.booklibrary;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
-import ru.projects.edu.spring.task14.booklibrary.config.AppConfig;
 import ru.projects.edu.spring.task14.booklibrary.domain.Author;
 import ru.projects.edu.spring.task14.booklibrary.domain.Book;
 import ru.projects.edu.spring.task14.booklibrary.domain.DBFile;
 import ru.projects.edu.spring.task14.booklibrary.domain.Genre;
 import ru.projects.edu.spring.task14.booklibrary.repository.BookRepository;
 
-import javax.persistence.EntityManager;
-
-@RunWith(SpringRunner.class)
-//@ExtendWith(SpringExtension.class)
+@ExtendWith(SpringExtension.class)
 @DataJpaTest
-//@ContextConfiguration(classes = AppConfig.class)
 @AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
 public class BookRepositoryTests {
 
