@@ -5,11 +5,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.validation.support.BindingAwareModelMap;
+import ru.projects.edu.spring.task14.booklibrary.config.StoragePath;
 import ru.projects.edu.spring.task14.booklibrary.controllers.AuthorsPageController;
 import ru.projects.edu.spring.task14.booklibrary.domain.Author;
 import ru.projects.edu.spring.task14.booklibrary.domain.dto.AuthorDto;
 import ru.projects.edu.spring.task14.booklibrary.services.author.AuthorDtoService;
 import ru.projects.edu.spring.task14.booklibrary.services.author.AuthorService;
+import ru.projects.edu.spring.task14.booklibrary.services.book.BookDtoService;
+import ru.projects.edu.spring.task14.booklibrary.services.book.BookService;
+import ru.projects.edu.spring.task14.booklibrary.services.genre.GenreService;
+import ru.projects.edu.spring.task14.booklibrary.services.storage.FileStorageService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +29,20 @@ public class AuthorsPageControllerTests {
   private AuthorsPageController authorsPageController;
   @MockBean
   private AuthorService authorService;
-
+  @MockBean
+  private StoragePath storagePath;
   @MockBean
   private AuthorDtoService authorDtoService;
+  @MockBean
+  private BookService bookService;
+  @MockBean
+  private BookDtoService bookDtoService;
+  @MockBean
+  private GenreService genreService;
+  @MockBean
+  private FileStorageService fileStorageService;
+
+
   @Test
   public void listAuthorsTest() {
     BindingAwareModelMap model = new BindingAwareModelMap();
