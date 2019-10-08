@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div class="container" th:fragment="menu">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/books.html" th:href="@{/books}">Книги</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/genres.html" th:href="@{/genres}">Жанры</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"  th:href="@{/authors}">Авторы</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" th:action="@{/books/search}"
+                  th:object="${objBook}" method="post">
+                <div class="form-row">
+                    <div class="col-7 col-lg-2">
+                        <label class="sr-only" for="number">По названию</label>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fas fa-receipt"></i></div>
+                            </div>
+                            <input type="text" class="form-control" id="number" placeholder="По названию" th:field="*{name}" >
+                        </div>
+                    </div>
+                    <div class="col-8 col-lg-2">
+                        <label class="sr-only" for="number">По году выпуска</label>
+                        <div class="input-group mb-2">
+                            <input type="text" class="form-control" id="year" placeholder="По году выпуска" th:field="*{releaseYear}" >
+                        </div>
+                    </div>
+                    <div class="col-9 col-lg-2">
+                        <label class="sr-only" for="carrier">По жанру</label>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fas fa-truck"></i></div>
+                            </div>
+                            <input type="text" class="form-control" id="carrier" placeholder="По жанру" th:field="*{genreName}" >
+                        </div>
+                    </div>
+                    <div class="col-10 col-lg-2">
+                        <label class="sr-only" for="customer">По автору</label>
+                        <div class="input-group mb-2">
+                            <input type="text" class="form-control" id="customer" placeholder="По автору" th:field="*{authorFullName}" >
+                        </div>
+                    </div>
+                    <div class="col-10 col-lg-2">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </nav>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+    <title>Редактирование автора</title>
+</head>
+<body>
+<div class="container">
+    <div class="modal-header">
+        <h5 class="modal-title">Редактирование автора</h5>
+    </div>
+    <form id="form" class="needs-validation" validate
+          th:action="@{/authors/save}" th:object="${author}" method="post">
+        <div class="modal-body">
+            <div class="form-row">
+                <input type="hidden" name="id" th:value="*{id}" />
+                <div class="col-12">
+                    <input type="text" class="form-control form-control_customize" name="name"
+                           placeholder="Фамилия" required th:field="*{family}">
+                </div>
+                <div class="col-12">
+                    <input type="text" class="form-control form-control_customize" name="name"
+                           placeholder="Имя" required th:field="*{firstName}">
+                </div>
+                <div class="col-12">
+                    <input type="text" class="form-control form-control_customize" name="name"
+                           placeholder="Отчество" th:field="*{patronymic}">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a class="btn btn-outline-primary btn-outline_customize btn_gray"  th:href="@{/authors}">Отмена</a>
+            <button class="btn btn-primary btn_customize btn_green" type="submit" id="add" th:value="Save">
+                Сохранить
+            </button>
+        </div>
+    </form>
+</div>
+</body>
+
+</html>
